@@ -12,7 +12,7 @@ def send_request(to_analyze_file_path, user_define_pattern_file=None, thresholds
 
     # ip和端口与sensitive_data_analyzer_server.py中设置的一致
     with grpc.insecure_channel('127.0.0.1:40051') as channel:
-        stub = sensitive_pb2_grpc.SensitiveDataAnalyzerServiceStub(channel)
+        stub = sensitive_pb2_grpc.OpenDlpServiceStub(channel)
         response = stub.SensitiveAnalyze(request)
         status = response.status
         result = response.result

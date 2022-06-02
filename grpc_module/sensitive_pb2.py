@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsensitive.proto\x12\x1ahitszids.wf.opendlp.api.v1\"f\n\x10SensitiveRequest\x12\x1c\n\x14to_analyze_file_path\x18\x01 \x01(\t\x12 \n\x18user_define_pattern_file\x18\x02 \x01(\t\x12\x12\n\nthresholds\x18\x03 \x01(\t\"W\n\x11SensitiveResponse\x12\x32\n\x06status\x18\x01 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Status\x12\x0e\n\x06result\x18\x02 \x01(\t\"K\n\x06Status\x12\x34\n\x04\x63ode\x18\x01 \x01(\x0e\x32&.hitszids.wf.opendlp.api.v1.StatusCode\x12\x0b\n\x03msg\x18\x02 \x01(\t*}\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x14\n\x0fPARAMETER_ERROR\x10\x90N\x12\x14\n\x0f\x46ILE_READ_ERROR\x10\x91N\x12\x1a\n\x15JSON_FILE_PARSE_ERROR\x10\x92N\x12\x1f\n\x1a\x41NY_COLUMN_RECOGNIZE_ERROR\x10\x93N2\x91\x01\n\x1cSensitiveDataAnalyzerService\x12q\n\x10SensitiveAnalyze\x12,.hitszids.wf.opendlp.api.v1.SensitiveRequest\x1a-.hitszids.wf.opendlp.api.v1.SensitiveResponse\"\x00\x42\x30\n\x1eorg.hitszids.wf.opendlp.api.v1B\x0cOpenDlpProtoP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsensitive.proto\x12\x1ahitszids.wf.opendlp.api.v1\"f\n\x10SensitiveRequest\x12\x1c\n\x14to_analyze_file_path\x18\x01 \x01(\t\x12 \n\x18user_define_pattern_file\x18\x02 \x01(\t\x12\x12\n\nthresholds\x18\x03 \x01(\t\"W\n\x11SensitiveResponse\x12\x32\n\x06status\x18\x01 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Status\x12\x0e\n\x06result\x18\x02 \x01(\t\"C\n\x14RegexGenerateRequest\x12\x12\n\nregex_name\x18\x01 \x01(\t\x12\x17\n\x0ftrain_data_file\x18\x02 \x01(\t\"\x7f\n\x15RegexGenerateResponse\x12\x32\n\x06status\x18\x01 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Status\x12\x32\n\x06result\x18\x02 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Result\"3\n\x06Result\x12\x12\n\nregex_name\x18\x01 \x01(\t\x12\x15\n\rregex_pattern\x18\x02 \x01(\t\"K\n\x06Status\x12\x34\n\x04\x63ode\x18\x01 \x01(\x0e\x32&.hitszids.wf.opendlp.api.v1.StatusCode\x12\x0b\n\x03msg\x18\x02 \x01(\t*}\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x14\n\x0fPARAMETER_ERROR\x10\x90N\x12\x14\n\x0f\x46ILE_READ_ERROR\x10\x91N\x12\x1a\n\x15JSON_FILE_PARSE_ERROR\x10\x92N\x12\x1f\n\x1a\x41NY_COLUMN_RECOGNIZE_ERROR\x10\x93N2\xfb\x01\n\x0eOpenDlpService\x12q\n\x10SensitiveAnalyze\x12,.hitszids.wf.opendlp.api.v1.SensitiveRequest\x1a-.hitszids.wf.opendlp.api.v1.SensitiveResponse\"\x00\x12v\n\rRegexGenerate\x12\x30.hitszids.wf.opendlp.api.v1.RegexGenerateRequest\x1a\x31.hitszids.wf.opendlp.api.v1.RegexGenerateResponse\"\x00\x42\x30\n\x1eorg.hitszids.wf.opendlp.api.v1B\x0cOpenDlpProtoP\x01\x62\x06proto3')
 
 _STATUSCODE = DESCRIPTOR.enum_types_by_name['StatusCode']
 StatusCode = enum_type_wrapper.EnumTypeWrapper(_STATUSCODE)
@@ -28,6 +28,9 @@ ANY_COLUMN_RECOGNIZE_ERROR = 10003
 
 _SENSITIVEREQUEST = DESCRIPTOR.message_types_by_name['SensitiveRequest']
 _SENSITIVERESPONSE = DESCRIPTOR.message_types_by_name['SensitiveResponse']
+_REGEXGENERATEREQUEST = DESCRIPTOR.message_types_by_name['RegexGenerateRequest']
+_REGEXGENERATERESPONSE = DESCRIPTOR.message_types_by_name['RegexGenerateResponse']
+_RESULT = DESCRIPTOR.message_types_by_name['Result']
 _STATUS = DESCRIPTOR.message_types_by_name['Status']
 SensitiveRequest = _reflection.GeneratedProtocolMessageType('SensitiveRequest', (_message.Message,), {
   'DESCRIPTOR' : _SENSITIVEREQUEST,
@@ -43,6 +46,27 @@ SensitiveResponse = _reflection.GeneratedProtocolMessageType('SensitiveResponse'
   })
 _sym_db.RegisterMessage(SensitiveResponse)
 
+RegexGenerateRequest = _reflection.GeneratedProtocolMessageType('RegexGenerateRequest', (_message.Message,), {
+  'DESCRIPTOR' : _REGEXGENERATEREQUEST,
+  '__module__' : 'sensitive_pb2'
+  # @@protoc_insertion_point(class_scope:hitszids.wf.opendlp.api.v1.RegexGenerateRequest)
+  })
+_sym_db.RegisterMessage(RegexGenerateRequest)
+
+RegexGenerateResponse = _reflection.GeneratedProtocolMessageType('RegexGenerateResponse', (_message.Message,), {
+  'DESCRIPTOR' : _REGEXGENERATERESPONSE,
+  '__module__' : 'sensitive_pb2'
+  # @@protoc_insertion_point(class_scope:hitszids.wf.opendlp.api.v1.RegexGenerateResponse)
+  })
+_sym_db.RegisterMessage(RegexGenerateResponse)
+
+Result = _reflection.GeneratedProtocolMessageType('Result', (_message.Message,), {
+  'DESCRIPTOR' : _RESULT,
+  '__module__' : 'sensitive_pb2'
+  # @@protoc_insertion_point(class_scope:hitszids.wf.opendlp.api.v1.Result)
+  })
+_sym_db.RegisterMessage(Result)
+
 Status = _reflection.GeneratedProtocolMessageType('Status', (_message.Message,), {
   'DESCRIPTOR' : _STATUS,
   '__module__' : 'sensitive_pb2'
@@ -50,19 +74,25 @@ Status = _reflection.GeneratedProtocolMessageType('Status', (_message.Message,),
   })
 _sym_db.RegisterMessage(Status)
 
-_SENSITIVEDATAANALYZERSERVICE = DESCRIPTOR.services_by_name['SensitiveDataAnalyzerService']
+_OPENDLPSERVICE = DESCRIPTOR.services_by_name['OpenDlpService']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n\036org.hitszids.wf.opendlp.api.v1B\014OpenDlpProtoP\001'
-  _STATUSCODE._serialized_start=317
-  _STATUSCODE._serialized_end=442
+  _STATUSCODE._serialized_start=568
+  _STATUSCODE._serialized_end=693
   _SENSITIVEREQUEST._serialized_start=47
   _SENSITIVEREQUEST._serialized_end=149
   _SENSITIVERESPONSE._serialized_start=151
   _SENSITIVERESPONSE._serialized_end=238
-  _STATUS._serialized_start=240
-  _STATUS._serialized_end=315
-  _SENSITIVEDATAANALYZERSERVICE._serialized_start=445
-  _SENSITIVEDATAANALYZERSERVICE._serialized_end=590
+  _REGEXGENERATEREQUEST._serialized_start=240
+  _REGEXGENERATEREQUEST._serialized_end=307
+  _REGEXGENERATERESPONSE._serialized_start=309
+  _REGEXGENERATERESPONSE._serialized_end=436
+  _RESULT._serialized_start=438
+  _RESULT._serialized_end=489
+  _STATUS._serialized_start=491
+  _STATUS._serialized_end=566
+  _OPENDLPSERVICE._serialized_start=696
+  _OPENDLPSERVICE._serialized_end=947
 # @@protoc_insertion_point(module_scope)

@@ -92,7 +92,7 @@ def generate(status, regex_name, train_data_file):
     print('{}: {}'.format(regex_name, regex_string))
 
     #TODO: 计算regex_string的fitness值。待fitness模块实现相关函数后再添加。
-    fitness_value = 1
+    fitness_value = 0
 
     result = {'regex_name': regex_name,
               'regex_string': regex_string,

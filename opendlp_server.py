@@ -56,7 +56,7 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
         if status.code == sensitive_pb2.OK:
             status, result = generator.generate(status, regex_name, train_data_file)
 
-        return sensitive_pb2.SensitiveResponse(status=status, result=json.dumps(result))
+        return sensitive_pb2.RegexGenerateResponse(status=status, result=json.dumps(result))
 
 
 def main():

@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 
+from opendlp_server import LOGGER
+
 class Dataset:
     def __init__(self, data_path):
         self.data_path = data_path
@@ -16,8 +18,10 @@ class Dataset:
 
     def read_csv_data(self):
         df = pd.read_csv(self.data_path, dtype=str)
-        pos_examples = self.clean(df['positive'].dropna(inplace=True))
-        neg_examples = self.clean(df['negative'].dropna(inplace=True))
+        df['positive'].dropna(inplace=True)
+        df['negative'].dropna(inplace=True)
+        pos_examples = self.clean(df['positive'])
+        neg_examples = self.clean(df['negative'])
         return pos_examples, neg_examples
 
     def build(self):

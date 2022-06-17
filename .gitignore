@@ -17,3 +17,10 @@ opendlp/sensitive_analyze/entity_recognize/predefined_recognizer/rule_recognizer
 opendlp/sensitive_analyze/entity_recognize/predefined_recognizer/rule_recognizer/__pycache__/
 opendlp/sensitive_analyze/entity_recognize/userdefined_recognizer/.DS_Store
 opendlp/sensitive_analyze/entity_recognize/userdefined_recognizer/__pycache__/
+
+__pycache__/
+opendlp/regex_generate/__pycache__/
+opendlp/regex_generate/config/__pycache__/
+opendlp/regex_generate/evolution/__pycache__/
+opendlp/regex_generate/fitness/__pycache__/
+opendlp/regex_generate/generations/__pycache__/

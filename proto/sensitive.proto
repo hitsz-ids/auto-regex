@@ -6,15 +6,11 @@ option java_multiple_files = true;
 option java_outer_classname = "OpenDlpProto";
 option java_package = "org.hitszids.wf.opendlp.api.v1";
 
-service OpenDlpService{
-  // 敏感数据识别接口
-  rpc SensitiveAnalyze(SensitiveRequest) returns (SensitiveResponse) {};
-
-  // 正则表达式生成接口
-  rpc RegexGenerate(RegexGenerateRequest) returns (RegexGenerateResponse) {};
+service SensitiveDataAnalyzerService{
+  // 敏感数据识别推理服务
+  rpc SensitiveAnalyze(SensitiveRequest) returns (SensitiveResponse) {}
 }
 
-// ------------------ SensitiveAnalyze ------------------
 // 敏感数据识别服务请求
 message SensitiveRequest{
   // 待预测文件路径，目前仅支持csv文件
@@ -36,55 +32,30 @@ message SensitiveResponse{
   string result = 2;
 }
 
-
-// ------------------ RegexGenerate ------------------
-// 正则表达式生成请求
-message RegexGenerateRequest{
-  string regex_name = 1;
-  string train_data_file = 2;
-}
-
-// 正则表达式生成响应
-message RegexGenerateResponse{
-  // 状态码
-  Status status = 1;
-
-  // 结果
-  Result result = 2;
-}
-
-message Result{
-  string regex_name = 1;
-  string regex_pattern = 2;
-}
-
-
-// ------------------ 公用 ------------------
 // 接口请求的应答状态码、消息
 message Status {
-  // 应答状态码
-  StatusCode code = 1;
+    // 应答状态码
+    StatusCode code = 1;
 
-  // 应答消息
-  string msg = 2;
+    // 应答消息
+    string msg = 2;
 }
 
 // 应答状态码枚举值
 enum StatusCode {
-  // 成功,所有列都正常返回识别结果
-  OK = 0;
+    // 成功,所有列都正常返回识别结果
+    OK = 0;
 
-  // 参数有误, 文件不存在也属于参数有误
-  PARAMETER_ERROR = 10000;
+    // 参数有误, 文件不存在也属于参数有误
+    PARAMETER_ERROR = 10000;
 
-  // 读取数据文件失败
-  FILE_READ_ERROR = 10001;
+    // 读取数据文件失败
+    FILE_READ_ERROR = 10001;
 
-  // json文件解析失败
-  JSON_FILE_PARSE_ERROR = 10002;
+    // json文件解析失败
+    JSON_FILE_PARSE_ERROR = 10002;
 
-  // 存在某列进行敏感数据识别时失败
-  ANY_COLUMN_RECOGNIZE_ERROR = 10003;
-
-
+    // 存在某列进行敏感数据识别时失败
+    ANY_COLUMN_RECOGNIZE_ERROR = 10003;
 }
+

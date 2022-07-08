@@ -1,12 +1,12 @@
-from opendlp.regex_generate.config import conf
-from opendlp.regex_generate.dataset import Dataset
-from opendlp.regex_generate.bpe import learn_bpe
-from opendlp.regex_generate.node_factory import NodeFactory
-from opendlp.regex_generate.generations.random_generate import RandomGenerator
-from opendlp.regex_generate.fitness.objective import Objective
-from opendlp.regex_generate.fitness.fitness import Fitness
-from opendlp.regex_generate.config.evolve_param import EvolveParam
-from opendlp.regex_generate.evolution.evolve import evolve
+from opendlp.regex_generation.config import conf
+from opendlp.regex_generation.dataset import Dataset
+from opendlp.regex_generation.bpe import learn_bpe
+from opendlp.regex_generation.node_factory import NodeFactory
+from opendlp.regex_generation.generations.random_generate import RandomGenerator
+from opendlp.regex_generation.fitness.objective import Objective
+from opendlp.regex_generation.fitness.fitness import Fitness
+from opendlp.regex_generation.config.evolve_param import EvolveParam
+from opendlp.regex_generation.evolution.evolve import evolve
 
 
 def get_fitness_rank(population, objective):

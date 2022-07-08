@@ -1,6 +1,6 @@
 
-from opendlp.regex_generate.generations.full import Full
-from opendlp.regex_generate.generations.growth import Growth
+from opendlp.regex_generation.generations.full import Full
+from opendlp.regex_generation.generations.growth import Growth
 
 class RandomGenerator:
     def __init__(self, max_depth, node_factory):

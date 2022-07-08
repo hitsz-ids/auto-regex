@@ -5,7 +5,7 @@ import grpc
 from . import sensitive_pb2 as sensitive__pb2
 
 
-class SensitiveDataAnalyzerServiceStub(object):
+class OpenDlpServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -15,38 +15,55 @@ class SensitiveDataAnalyzerServiceStub(object):
             channel: A grpc.Channel.
         """
         self.SensitiveAnalyze = channel.unary_unary(
-                '/hitszids.wf.opendlp.api.v1.SensitiveDataAnalyzerService/SensitiveAnalyze',
+                '/hitszids.wf.opendlp.api.v1.OpenDlpService/SensitiveAnalyze',
                 request_serializer=sensitive__pb2.SensitiveRequest.SerializeToString,
                 response_deserializer=sensitive__pb2.SensitiveResponse.FromString,
                 )
+        self.RegexGenerate = channel.unary_unary(
+                '/hitszids.wf.opendlp.api.v1.OpenDlpService/RegexGenerate',
+                request_serializer=sensitive__pb2.RegexGenerateRequest.SerializeToString,
+                response_deserializer=sensitive__pb2.RegexGenerateResponse.FromString,
+                )
 
 
-class SensitiveDataAnalyzerServiceServicer(object):
+class OpenDlpServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def SensitiveAnalyze(self, request, context):
-        """敏感数据识别推理服务
+        """敏感数据识别接口
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RegexGenerate(self, request, context):
+        """正则表达式生成接口
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_SensitiveDataAnalyzerServiceServicer_to_server(servicer, server):
+def add_OpenDlpServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'SensitiveAnalyze': grpc.unary_unary_rpc_method_handler(
                     servicer.SensitiveAnalyze,
                     request_deserializer=sensitive__pb2.SensitiveRequest.FromString,
                     response_serializer=sensitive__pb2.SensitiveResponse.SerializeToString,
             ),
+            'RegexGenerate': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegexGenerate,
+                    request_deserializer=sensitive__pb2.RegexGenerateRequest.FromString,
+                    response_serializer=sensitive__pb2.RegexGenerateResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'hitszids.wf.opendlp.api.v1.SensitiveDataAnalyzerService', rpc_method_handlers)
+            'hitszids.wf.opendlp.api.v1.OpenDlpService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class SensitiveDataAnalyzerService(object):
+class OpenDlpService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -60,8 +77,25 @@ class SensitiveDataAnalyzerService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/hitszids.wf.opendlp.api.v1.SensitiveDataAnalyzerService/SensitiveAnalyze',
+        return grpc.experimental.unary_unary(request, target, '/hitszids.wf.opendlp.api.v1.OpenDlpService/SensitiveAnalyze',
             sensitive__pb2.SensitiveRequest.SerializeToString,
             sensitive__pb2.SensitiveResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RegexGenerate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/hitszids.wf.opendlp.api.v1.OpenDlpService/RegexGenerate',
+            sensitive__pb2.RegexGenerateRequest.SerializeToString,
+            sensitive__pb2.RegexGenerateResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

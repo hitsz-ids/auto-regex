@@ -60,3 +60,12 @@ class Node:
         @param context:
         @return: new string
         """
+
+    def __eq__(self, other):
+        if isinstance(other, Node):
+            return other.form('') == self.form('')
+        else:
+            return False
+
+    def __hash__(self):
+        return hash(self.form(''))

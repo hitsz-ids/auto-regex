@@ -19,11 +19,8 @@ class Fitness:
         return sum(self.__fitness_arr)
 
     def __eq__(self, other):
-        raise NotImplementedError
+        return self.fitness == other.fitness
 
     def __lt__(self, other):
-        raise NotImplementedError
-
-    def __hash__(self):
-        raise NotImplementedError
+        return self.fitness < other.fitness
 

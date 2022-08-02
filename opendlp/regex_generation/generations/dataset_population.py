@@ -193,11 +193,8 @@ def compact_to_quantifier(nodes:deque, use_min_max:bool, fix_length:bool):
         repeat_num = 1
         while len(nodes)>0:
             next_node = nodes[0]
-            try:
-                value = node.children[0].value if isinstance(node, ListMatch) else node.value
-                next_value = next_node.children[0].value if isinstance(next_node, ListMatch) else next_node.value
-            except Exception as e:
-                print(e)
+            value = node.children[0].value if isinstance(node, ListMatch) else node.value
+            next_value = next_node.children[0].value if isinstance(next_node, ListMatch) else next_node.value
 
             if next_value == value:
                 repeat_num += 1

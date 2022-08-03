@@ -1,13 +1,5 @@
 .idea/*
 log/*
-__pycache__/
-**/__pycache__/
-**/**/__pycache__/
-**/**/**/__pycache__/
-**/**/**/**/__pycache__/
-.DS_Store
+**/__pycache__
 **/.DS_Store
-**/**/.DS_Store
-**/**/**/.DS_Store
-**/**/**/**/.DS_Store
 

@@ -52,11 +52,13 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
         status = sensitive_pb2.Status()
         status.code = sensitive_pb2.OK
         status = check_param_regex_generate(status, regex_name, train_data_file)
-        result = {}
+        result = sensitive_pb2.Result()
         if status.code == sensitive_pb2.OK:
-            status, result = generator.generate(status, regex_name, train_data_file)
+            res = generator.generate(regex_name, train_data_file)
+            result.regex_name = res['regex_name']
+            result.regex_pattern = res['regex_pattern']
 
-        return sensitive_pb2.RegexGenerateResponse(status=status, result=json.dumps(result))
+        return sensitive_pb2.RegexGenerateResponse(status=status, result=result)
 
 
 def main():

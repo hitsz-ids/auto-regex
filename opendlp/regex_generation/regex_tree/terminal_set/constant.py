@@ -1,5 +1,6 @@
-from opendlp.regex_generation.regex_tree import Node, RegexContext
+from opendlp.regex_generation.regex_tree import Node
 from opendlp.regex_generation.config.conf import RegexFlavour
+from opendlp.regex_generation.regex_tree import RegexContext
 
 class Constant(Node):
     allowed_classes = {"\\w", "\\d", ".", "\\b", "\\s"}

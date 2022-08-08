@@ -6,8 +6,8 @@ from logging.config import fileConfig
 import grpc
 from concurrent import futures
 from service.grpc_module import sensitive_pb2, sensitive_pb2_grpc
-from .util import check_param_sensitive, check_param_regex_generate
-from opendlp.sensitive_analyze import table_analyzer
+from service.util import check_param_sensitive, check_param_regex_generate
+from opendlp.sensitive_analyze import table_analyzer, exceptions
 from opendlp.regex_generation import generator
 
 
@@ -35,8 +35,22 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
         status = check_param_sensitive(status, to_analyze_file_path, user_define_pattern_file, thresholds)
         result = {}
         if status.code == sensitive_pb2.OK:
-            status, result = table_analyzer.analyze(status, to_analyze_file_path, user_define_pattern_file, thresholds)
+            try:
+                result = table_analyzer.analyze(to_analyze_file_path, user_define_pattern_file, thresholds)
+            except exceptions.FILE_READ_ERROR as error:
+                LOGGER.error(error)
+                status.code = sensitive_pb2.FILE_READ_ERROR
+                status.msg = '待识别数据表文件{}读取失败。'.format(to_analyze_file_path)
+                result = {}
+            except Exception as error:
+                LOGGER.error(error)
+                status.code = sensitive_pb2.SENSITIVE_ANALYZE_ERROR
+                status.msg = '敏感数据识别失败。'
+                result = {}
+            else:
+                status.msg = '敏感数据识别成功。'
 
+        LOGGER.info('analyzing finished.')
         return sensitive_pb2.SensitiveResponse(status=status, result=json.dumps(result))
 
     def RegexGenerate(self, request, context):

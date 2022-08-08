@@ -83,8 +83,8 @@ enum StatusCode {
   // json文件解析失败
   JSON_FILE_PARSE_ERROR = 10002;
 
-  // 存在某列进行敏感数据识别时失败
-  ANY_COLUMN_RECOGNIZE_ERROR = 10003;
+  // 敏感数据识别时失败
+  SENSITIVE_ANALYZE_ERROR = 10003;
 
 
 }

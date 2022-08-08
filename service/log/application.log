@@ -1,0 +1,20 @@
+2022-08-08 19:19:43,697 INFO opendlp_server.py[65] 启动服务，服务监听端口为:40051
+2022-08-08 19:22:14,729 INFO opendlp_server.py[25] ------ 接收敏感数据识别参数:
+2022-08-08 19:22:14,729 INFO opendlp_server.py[29]    to_analyze_file_path: ../tests/data/data-udf.csv
+2022-08-08 19:22:14,729 INFO opendlp_server.py[30]    user_define_pattern_file: ../tests/data/pattern.json
+2022-08-08 19:22:14,729 INFO opendlp_server.py[31]    threshold: {"QQ":1}
+2022-08-08 19:22:51,727 INFO opendlp_server.py[25] ------ 接收敏感数据识别参数:
+2022-08-08 19:22:51,728 INFO opendlp_server.py[29]    to_analyze_file_path: ../../tests/data/data-udf.csv
+2022-08-08 19:22:51,728 INFO opendlp_server.py[30]    user_define_pattern_file: ../../tests/data/pattern.json
+2022-08-08 19:22:51,728 INFO opendlp_server.py[31]    threshold: {"QQ":1}
+2022-08-08 19:23:22,014 INFO opendlp_server.py[25] ------ 接收敏感数据识别参数:
+2022-08-08 19:23:22,014 INFO opendlp_server.py[29]    to_analyze_file_path: tests/data/data-udf.csv
+2022-08-08 19:23:22,014 INFO opendlp_server.py[30]    user_define_pattern_file: tests/data/pattern.json
+2022-08-08 19:23:22,014 INFO opendlp_server.py[31]    threshold: {"QQ":1}
+2022-08-08 19:23:22,016 INFO table_analyzer.py[15] start analyzing......
+2022-08-08 19:23:22,030 INFO table_analyzer.py[24] table columns: 2
+2022-08-08 19:23:22,030 INFO table_analyzer.py[25] table rows: 10
+2022-08-08 19:23:22,031 INFO table_analyzer.py[28] after select at most 1000 rows, table rows: 10
+2022-08-08 19:23:22,065 INFO table_analyzer.py[54] analyzing QQ ......
+2022-08-08 19:23:22,120 INFO table_analyzer.py[54] analyzing PASSWORD ......
+2022-08-08 19:23:22,132 INFO table_analyzer.py[89] analyzing finished.

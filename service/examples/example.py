@@ -1,6 +1,5 @@
 import grpc
-from grpc_module import sensitive_pb2, sensitive_pb2_grpc
-from pprint import pprint
+from service.grpc_module import sensitive_pb2, sensitive_pb2_grpc
 
 def send_request(to_analyze_file_path, user_define_pattern_file=None, thresholds=None):
     request = sensitive_pb2.SensitiveRequest()

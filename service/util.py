@@ -1,7 +1,7 @@
 import os
 import json
 import logging
-from grpc_module import sensitive_pb2
+from service.grpc_module import sensitive_pb2
 
 LOGGER = logging.getLogger('openDLP')
 

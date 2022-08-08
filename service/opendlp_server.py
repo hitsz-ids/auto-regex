@@ -5,8 +5,8 @@ import logging
 from logging.config import fileConfig
 import grpc
 from concurrent import futures
-from grpc_module import sensitive_pb2, sensitive_pb2_grpc
-from util import check_param_sensitive, check_param_regex_generate
+from service.grpc_module import sensitive_pb2, sensitive_pb2_grpc
+from .util import check_param_sensitive, check_param_regex_generate
 from opendlp.sensitive_analyze import table_analyzer
 from opendlp.regex_generation import generator
 

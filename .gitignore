@@ -1,3 +1,5 @@
-.DS_Store/*
 .idea/*
+log/*
+**/__pycache__
+**/.DS_Store
 

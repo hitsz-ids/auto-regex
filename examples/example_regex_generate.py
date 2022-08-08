@@ -16,19 +16,9 @@ def send_request(train_data_file, regex_name=None):
         result = response.result
     return status, result
 
-'''
-train_data_file = 'tests/data/regex_generation/regex_gen_test_1000.csv'
-regex_name = 'ID_CARD'
-status, result = send_request(train_data_file, regex_name)
-print('status.code: ', status.code)
-print('status.msg: ', status.msg)
-print('result: ', result)
-'''
 
-data_dir = 'tests/data/regex_generation/debug-data/'
-regex_names = ['ID_CARD', 'TELEPHONE', 'MOBILE_PHONE', 'EMAIL', 'LICENSE_PLATE',
-               'BANK_CARD', 'PASSPORT', 'SOCIAL_CREDIT_CODE', 'IPV4', 'IPV6', 'MAC',
-               'DOMAIN_NAME', 'POSTCODE', 'DATE']
+data_dir = 'tests/data/regex_generation/test-data/'
+regex_names = ['ID_CARD']
 for regex_name in regex_names:
     train_data_file = os.path.join(data_dir, regex_name+'.csv')
     status, result = send_request(train_data_file, regex_name)

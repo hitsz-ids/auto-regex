@@ -87,7 +87,6 @@ if __name__ == '__main__':
     regex_names = ['ID_CARD', 'TELEPHONE', 'MOBILE_PHONE', 'EMAIL', 'LICENSE_PLATE',
                    'BANK_CARD', 'PASSPORT', 'SOCIAL_CREDIT_CODE', 'IPV4', 'IPV6', 'MAC',
                    'DOMAIN_NAME', 'POSTCODE', 'DATE']
-    regex_names = ['IPV6']
     result_dict = {'regex_name': [], 'regex_pattern':[]}
     for regex_name in regex_names:
         train_data_file = os.path.join(data_dir, regex_name + '.csv')

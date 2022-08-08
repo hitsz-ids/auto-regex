@@ -12,6 +12,7 @@ def learn_bpe(strings: List[str], pair_percent_threshold: float, char_percent_th
 
     vocab = get_vocab(strings)
     percent = 1.0
+    # 待改进，这里如果 pair_percent_threshold <=0，则会死循环
     while percent >= pair_percent_threshold:
         pair2freq = pair_freq_stats(vocab, with_position)
         best = max(pair2freq, key=pair2freq.get)
@@ -43,6 +44,7 @@ def pair_freq_stats(vocab, with_position=False):
         symbols = word.split(' ')
         if with_position:
             for i in range(len(symbols) - 1):
+                # 仅统计不同的数据中出现的次数，如果freq不为1，则表明有多条训练数据串相同
                 pair_freq[(symbols[i], symbols[i + 1]), (i, i + 1)] += 1
         else:
             for i in range(len(symbols) - 1):

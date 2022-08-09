@@ -11,7 +11,33 @@ from opendlp.regex_generation.evolution import Evolution, Selection, Variation
 from opendlp.regex_generation.utils import get_fitness_rank, get_best_fitness_precison
 
 
-def generate(regex_name, train_data_file):
+def generate(regex_name,
+             train_data_file,
+             init_population_size=1000,
+             max_iterations=2000,
+             precision_divide_conquer=0.8,
+             iteration_divide_conquer=30,
+             noise_positive_sample_ratio=0.05,
+             population_size_decay_rate=0.95,
+             min_population_size=200):
+    """
+    生成正则表达式
+    Args:
+        regex_name: 生成的正则表达式的名称
+        train_data_file: 用于生成正则表达式的训练数据，有两列，列名分布为"positive"和"negative"，表示正、负样本。
+        init_population_size: 初始正则表达式种群大小
+        max_iterations: 最大迭代次数
+        precision_divide_conquer: 子正则表达式的最小精确率阈值
+        iteration_divide_conquer: 子正则表达式的最小迭代次数阈值
+        noise_positive_sample_ratio: 噪声正样本比例，即允许生成的正则表达式无法匹配少量噪声正样本
+        population_size_decay_rate: 正则表达式种群大小衰减参数
+        min_population_size: 最小正则表达式种群大小，达到该大小后不在衰减
+
+    Returns:
+        生成的正则表达式，是一个字典：{'regex_name': regex_name, 'regex_pattern': regex_string}
+
+    """
+
     # 创建数据集
     dataset = Dataset(train_data_file)
     dataset.build()
@@ -30,17 +56,17 @@ def generate(regex_name, train_data_file):
     dataset_popu_gen = DatasetPopulationGenerator(dataset, bpe_token_dict)
     random_popu_gen = RandomPopulationGenerator(conf.MAX_DEPTH, node_facto)
     popu_initializer = PopulationInitializer(dataset_popu_gen, random_popu_gen)
-    population = popu_initializer.initlize(conf.POPULATION_SIZE)
+    population = popu_initializer.initlize(init_population_size)
 
     # 演化
     objective = Objective(dataset)
     result_fitness = []
-    evolve_param = EvolutionParam()
+    evolve_param = EvolutionParam(population_size_decay_rate, min_population_size)
     selection = Selection()
     variation = Variation(evolve_param, bpe_token_dict, random_popu_gen)
     evolution = Evolution(evolve_param, selection, variation, random_popu_gen)
     iter_best = 0
-    for g in range(conf.MAX_ITERATIONS):
+    for g in range(max_iterations):
         fitness_ranked = get_fitness_rank(population, objective)
         best_fitness = get_best_fitness_precison(fitness_ranked)
         print('{}\t generation: {}\t best: {}\t '.format(regex_name, g,
@@ -48,11 +74,11 @@ def generate(regex_name, train_data_file):
 
         best_precision = best_fitness.fitness_arr[0]
         iter_best += 1
-        if best_precision >= conf.PRECISION_DIVIDE_CONQUER \
-                and iter_best >= conf.ITERATION_DIVIDE_CONQUER:
+        if best_precision >= precision_divide_conquer \
+                and iter_best >= iteration_divide_conquer:
             result_fitness.append(best_fitness)
             dataset.remove_by_regex(best_fitness.tree)
-            if len(dataset.pos_examples) < ori_pos_sample_num * conf.NOISE_POSITIVE_SAMPLE_RATIO:
+            if len(dataset.pos_examples) < ori_pos_sample_num * noise_positive_sample_ratio:
                 break
             population = popu_initializer.initlize(len(population))
             iter_best = 0

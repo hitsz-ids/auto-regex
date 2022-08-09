@@ -20,22 +20,22 @@ def generate(regex_name,
              noise_positive_sample_ratio=0.05,
              population_size_decay_rate=0.95,
              min_population_size=200):
-    """
-    生成正则表达式
+    """生成正则表达式
+
     Args:
         regex_name: 生成的正则表达式的名称
-        train_data_file: 用于生成正则表达式的训练数据，有两列，列名分布为"positive"和"negative"，表示正、负样本。
+        train_data_file: 用于生成正则表达式的训练数据，有两列，列名分布为"positive"和"negative"，表示正、负样本
         init_population_size: 初始正则表达式种群大小
         max_iterations: 最大迭代次数
         precision_divide_conquer: 子正则表达式的最小精确率阈值
         iteration_divide_conquer: 子正则表达式的最小迭代次数阈值
         noise_positive_sample_ratio: 噪声正样本比例，即允许生成的正则表达式无法匹配少量噪声正样本
         population_size_decay_rate: 正则表达式种群大小衰减参数
-        min_population_size: 最小正则表达式种群大小，达到该大小后不在衰减
+        min_population_size: 最小正则表达式种群大小，达到该大小后不再衰减
 
     Returns:
-        生成的正则表达式，是一个字典：{'regex_name': regex_name, 'regex_pattern': regex_string}
-
+        生成的正则表达式结果字典，
+        形式为{"regex_name": str, "regex_pattern": str}。
     """
 
     # 创建数据集

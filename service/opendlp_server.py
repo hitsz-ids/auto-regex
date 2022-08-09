@@ -33,6 +33,10 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
         status = sensitive_pb2.Status()
         status.code = sensitive_pb2.OK
         status = check_param_sensitive(status, to_analyze_file_path, user_define_pattern_file, thresholds)
+        if thresholds != '':
+            thresholds = json.loads(thresholds)
+        else:
+            thresholds = dict()
         result = {}
         if status.code == sensitive_pb2.OK:
             try:

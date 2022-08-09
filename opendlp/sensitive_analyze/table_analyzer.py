@@ -1,7 +1,6 @@
 import pandas as pd
 import logging
 from collections import Counter
-import json
 from opendlp.sensitive_analyze.analyzer_engine import AnalyzerEngine
 from opendlp.sensitive_analyze.entity_recognize.utils import get_threshold
 from opendlp.sensitive_analyze.entity_recognize.conf import config
@@ -10,7 +9,21 @@ from opendlp.sensitive_analyze.exceptions import FILE_READ_ERROR
 LOGGER = logging.getLogger('openDLP')
 
 
-def analyze(csv_table_path, regex_pattern_file='', thresholds=''):
+def analyze(csv_table_path, regex_pattern_file=None, thresholds=None):
+    """表格敏感数据分析，识别出每一列数据所属敏感数据类型，如果不是敏感数据则为"OTHER"
+
+    Args:
+        csv_table_path: 数据表文件路径，csv文件
+        regex_pattern_file: 自定义类型的识别正则表达式文件，json文件
+        thresholds: 敏感数据识别判断阈值，一列中某个敏感数据类型的占比达到阈值后则认为是此列数据是该敏感数据类型
+
+    Returns:
+        敏感数据识别结果字典，键为列名，值为字典。值字典中"success"是否识别成功，"type"表示敏感数据类型，
+        "fraction"表示该列中type类型的占比。
+        eg: {"qq": {"success": true, "type": "OTHER", "fraction": "9/10"},
+             "pwd": {"success": true, "type": "PASSWORD", "fraction": "10/10"}}
+
+    """
     LOGGER.info('start analyzing......')
     try:
         data_table = pd.read_csv(csv_table_path, dtype=str)
@@ -28,9 +41,6 @@ def analyze(csv_table_path, regex_pattern_file='', thresholds=''):
         analyzer = AnalyzerEngine(regex_pattern_file)
     else:
         analyzer = AnalyzerEngine()
-
-    if thresholds != '':
-        thresholds = json.loads(thresholds)
 
     result_dic = dict()
     success_flag_dic = dict()

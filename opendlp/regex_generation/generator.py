@@ -12,7 +12,6 @@ from opendlp.regex_generation.utils import get_fitness_rank, get_best_fitness_pr
 
 
 def generate(regex_name, train_data_file):
-
     # 创建数据集
     dataset = Dataset(train_data_file)
     dataset.build()

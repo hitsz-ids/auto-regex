@@ -50,7 +50,7 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
             else:
                 status.msg = '敏感数据识别成功。'
 
-        LOGGER.info('analyzing finished.')
+        LOGGER.info('------ 敏感数据识别完成。')
         return sensitive_pb2.SensitiveResponse(status=status, result=json.dumps(result))
 
     def RegexGenerate(self, request, context):
@@ -68,9 +68,15 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
         status = check_param_regex_generate(status, regex_name, train_data_file)
         result = sensitive_pb2.Result()
         if status.code == sensitive_pb2.OK:
-            res = generator.generate(regex_name, train_data_file)
-            result.regex_name = res['regex_name']
-            result.regex_pattern = res['regex_pattern']
+            try:
+                res = generator.generate(regex_name, train_data_file)
+            except exceptions as error:
+                LOGGER.error(error)
+                status.code = sensitive_pb2.REGEX_GENERATE_ERROR
+                status.msg = '正则表达式生成失败。'
+            else:
+                result.regex_name = res['regex_name']
+                result.regex_pattern = res['regex_pattern']
 
         return sensitive_pb2.RegexGenerateResponse(status=status, result=result)
 

@@ -86,5 +86,6 @@ enum StatusCode {
   // 敏感数据识别时失败
   SENSITIVE_ANALYZE_ERROR = 10003;
 
-
+  // 正则表达式生成失败
+  REGEX_GENERATE_ERROR = 10004;
 }

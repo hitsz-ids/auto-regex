@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsensitive.proto\x12\x1ahitszids.wf.opendlp.api.v1\"f\n\x10SensitiveRequest\x12\x1c\n\x14to_analyze_file_path\x18\x01 \x01(\t\x12 \n\x18user_define_pattern_file\x18\x02 \x01(\t\x12\x12\n\nthresholds\x18\x03 \x01(\t\"W\n\x11SensitiveResponse\x12\x32\n\x06status\x18\x01 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Status\x12\x0e\n\x06result\x18\x02 \x01(\t\"C\n\x14RegexGenerateRequest\x12\x12\n\nregex_name\x18\x01 \x01(\t\x12\x17\n\x0ftrain_data_file\x18\x02 \x01(\t\"\x7f\n\x15RegexGenerateResponse\x12\x32\n\x06status\x18\x01 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Status\x12\x32\n\x06result\x18\x02 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Result\"3\n\x06Result\x12\x12\n\nregex_name\x18\x01 \x01(\t\x12\x15\n\rregex_pattern\x18\x02 \x01(\t\"K\n\x06Status\x12\x34\n\x04\x63ode\x18\x01 \x01(\x0e\x32&.hitszids.wf.opendlp.api.v1.StatusCode\x12\x0b\n\x03msg\x18\x02 \x01(\t*z\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x14\n\x0fPARAMETER_ERROR\x10\x90N\x12\x14\n\x0f\x46ILE_READ_ERROR\x10\x91N\x12\x1a\n\x15JSON_FILE_PARSE_ERROR\x10\x92N\x12\x1c\n\x17SENSITIVE_ANALYZE_ERROR\x10\x93N2\xfb\x01\n\x0eOpenDlpService\x12q\n\x10SensitiveAnalyze\x12,.hitszids.wf.opendlp.api.v1.SensitiveRequest\x1a-.hitszids.wf.opendlp.api.v1.SensitiveResponse\"\x00\x12v\n\rRegexGenerate\x12\x30.hitszids.wf.opendlp.api.v1.RegexGenerateRequest\x1a\x31.hitszids.wf.opendlp.api.v1.RegexGenerateResponse\"\x00\x42\x30\n\x1eorg.hitszids.wf.opendlp.api.v1B\x0cOpenDlpProtoP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsensitive.proto\x12\x1ahitszids.wf.opendlp.api.v1\"f\n\x10SensitiveRequest\x12\x1c\n\x14to_analyze_file_path\x18\x01 \x01(\t\x12 \n\x18user_define_pattern_file\x18\x02 \x01(\t\x12\x12\n\nthresholds\x18\x03 \x01(\t\"W\n\x11SensitiveResponse\x12\x32\n\x06status\x18\x01 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Status\x12\x0e\n\x06result\x18\x02 \x01(\t\"C\n\x14RegexGenerateRequest\x12\x12\n\nregex_name\x18\x01 \x01(\t\x12\x17\n\x0ftrain_data_file\x18\x02 \x01(\t\"\x7f\n\x15RegexGenerateResponse\x12\x32\n\x06status\x18\x01 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Status\x12\x32\n\x06result\x18\x02 \x01(\x0b\x32\".hitszids.wf.opendlp.api.v1.Result\"3\n\x06Result\x12\x12\n\nregex_name\x18\x01 \x01(\t\x12\x15\n\rregex_pattern\x18\x02 \x01(\t\"K\n\x06Status\x12\x34\n\x04\x63ode\x18\x01 \x01(\x0e\x32&.hitszids.wf.opendlp.api.v1.StatusCode\x12\x0b\n\x03msg\x18\x02 \x01(\t*\x95\x01\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x14\n\x0fPARAMETER_ERROR\x10\x90N\x12\x14\n\x0f\x46ILE_READ_ERROR\x10\x91N\x12\x1a\n\x15JSON_FILE_PARSE_ERROR\x10\x92N\x12\x1c\n\x17SENSITIVE_ANALYZE_ERROR\x10\x93N\x12\x19\n\x14REGEX_GENERATE_ERROR\x10\x94N2\xfb\x01\n\x0eOpenDlpService\x12q\n\x10SensitiveAnalyze\x12,.hitszids.wf.opendlp.api.v1.SensitiveRequest\x1a-.hitszids.wf.opendlp.api.v1.SensitiveResponse\"\x00\x12v\n\rRegexGenerate\x12\x30.hitszids.wf.opendlp.api.v1.RegexGenerateRequest\x1a\x31.hitszids.wf.opendlp.api.v1.RegexGenerateResponse\"\x00\x42\x30\n\x1eorg.hitszids.wf.opendlp.api.v1B\x0cOpenDlpProtoP\x01\x62\x06proto3')
 
 _STATUSCODE = DESCRIPTOR.enum_types_by_name['StatusCode']
 StatusCode = enum_type_wrapper.EnumTypeWrapper(_STATUSCODE)
@@ -24,6 +24,7 @@ PARAMETER_ERROR = 10000
 FILE_READ_ERROR = 10001
 JSON_FILE_PARSE_ERROR = 10002
 SENSITIVE_ANALYZE_ERROR = 10003
+REGEX_GENERATE_ERROR = 10004
 
 
 _SENSITIVEREQUEST = DESCRIPTOR.message_types_by_name['SensitiveRequest']
@@ -79,8 +80,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n\036org.hitszids.wf.opendlp.api.v1B\014OpenDlpProtoP\001'
-  _STATUSCODE._serialized_start=568
-  _STATUSCODE._serialized_end=690
+  _STATUSCODE._serialized_start=569
+  _STATUSCODE._serialized_end=718
   _SENSITIVEREQUEST._serialized_start=47
   _SENSITIVEREQUEST._serialized_end=149
   _SENSITIVERESPONSE._serialized_start=151
@@ -93,6 +94,6 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _RESULT._serialized_end=489
   _STATUS._serialized_start=491
   _STATUS._serialized_end=566
-  _OPENDLPSERVICE._serialized_start=693
-  _OPENDLPSERVICE._serialized_end=944
+  _OPENDLPSERVICE._serialized_start=721
+  _OPENDLPSERVICE._serialized_end=972
 # @@protoc_insertion_point(module_scope)

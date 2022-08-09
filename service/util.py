@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import pandas as pd
 from service.grpc_module import sensitive_pb2
 
 LOGGER = logging.getLogger('openDLP')
@@ -75,6 +76,16 @@ def check_param_regex_generate(status, regex_name, train_data_file):
     if not train_data_file.endswith('.csv'):
         status.code = sensitive_pb2.PARAMETER_ERROR
         status.msg = '正则表达式生成训练数据文件{}不是csv文件，目前仅支持csv文件。'.format(train_data_file)
+        return status
+    try:
+        df = pd.read_csv(train_data_file, nrows=3)
+    except:
+        status.code = sensitive_pb2.FILE_READ_ERROR
+        status.msg = '训练样例数据文件{}读取失败。'.format(train_data_file)
+        return status
+    if not ('positive' in df.columns and 'negative' in df.columns):
+        status.code = sensitive_pb2.FILE_READ_ERROR
+        status.msg = '训练样例数据中需包含{}和{}列名'.format('positive', 'negative')
         return status
 
     status.code = sensitive_pb2.OK

@@ -21,23 +21,23 @@ class EntityClassifier():
 
     def __load_model(self):
         self.model = Model(self.config).to(self.device)
-        if os.path.exists(self.config.vocab_path):
+        if os.path.exists(self.config.model_path):
             self.model.load_state_dict(torch.load(self.config.model_path, map_location=self.device))
         else:
-            raise ValueError('Model file dose not exist!')
+            raise ValueError('Model file {} dose not exist!'.format(self.config.model_path))
 
     def __load_vocab(self):
         if os.path.exists(self.config.vocab_path):
             self.vocab = pickle.load(open(self.config.vocab_path, 'rb'))
         else:
-            raise ValueError('Vocab file dose not exist!')
+            raise ValueError('Vocab file {} dose not exist!'.format(self.config.vocab_path))
 
     def __load_label2id(self):
         if os.path.exists(self.config.label2id_path):
             self.label2id = pickle.load(open(self.config.label2id_path, 'rb'))
             self.id2label = dict([val, key] for key, val in self.label2id.items())
         else:
-            raise ValueError('Label2id file dose not exist!')
+            raise ValueError('Label2id file {} dose not exist!'.format(self.config.label2id_path))
 
 
     def predict(self, texts):

@@ -8,18 +8,15 @@ openDLP的正则表达式生成功能能够基于提供的正、负训练样本�
 
 | 重要链接                                                     |                                                              |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| :book:  [文档](https://github.com/hitsz-ids/openDLP/tree/dev) | 项目文档                                                     |
+| :book:  [文档](https://opendlp.readthedocs.io/ )             | 项目文档                                                     |
 | :octocat:  [项目仓库](https://github.com/hitsz-ids/openDLP)  | 项目Github仓库                                               |
 | :scroll: [License](https://github.com/hitsz-ids/openDLP/blob/main/LICENSE) | Apache-2.0 license                                           |
-| <img src="docs/imgs/AI靶场logo.png" style="zoom:25%;" /> 示例 | 在[AI靶场](https://datai.pcl.ac.cn/)上运行opendlp示例（敬请期待） |
+| <img src="docs/imgs/AI靶场logo.png" style="zoom:10%;" /> 示例 | 在[AI靶场](https://datai.pcl.ac.cn/)上运行opendlp示例（敬请期待） |
 
-[文档]: https://github.com/hitsz-ids/openDLP/tree/dev
-
-[ 项目仓库 ]：https://github.com/hitsz-ids/openDLP 
-
+[文档]: https://opendlp.readthedocs.io/
+[项目仓库]: https://github.com/hitsz-ids/openDLP
 [License]: https://github.com/hitsz-ids/openDLP/blob/main/LICENSE
-
-[ AI靶场 ]：https://datai.pcl.ac.cn/ 
+[AI靶场]: https://datai.pcl.ac.cn/
 
 ## 特性
 

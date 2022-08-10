@@ -19,8 +19,8 @@ def analyze(csv_table_path, regex_pattern_file=None, thresholds=None):
 
     Returns:
         敏感数据识别结果字典，键为列名，值为字典。值字典中"success"是否识别成功，"type"表示敏感数据类型，"fraction"表示该列中type类型的占比。
-        eg: {"qq": {"success": true, "type": "OTHER", "fraction": "9/10"},
-        "pwd": {"success": true, "type": "PASSWORD", "fraction": "10/10"}}
+        eg: {"qq": {"success": True, "type": "OTHER", "fraction": "9/10"},
+        "pwd": {"success": True, "type": "PASSWORD", "fraction": "10/10"}}
 
     """
     LOGGER.info('start analyzing......')

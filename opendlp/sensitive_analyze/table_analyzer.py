@@ -1,25 +1,33 @@
 import pandas as pd
 import logging
 from collections import Counter
-import json
 from opendlp.sensitive_analyze.analyzer_engine import AnalyzerEngine
 from opendlp.sensitive_analyze.entity_recognize.utils import get_threshold
 from opendlp.sensitive_analyze.entity_recognize.conf import config
-from grpc_module import sensitive_pb2
-
+from opendlp.sensitive_analyze.exceptions import FILE_READ_ERROR
 
 LOGGER = logging.getLogger('openDLP')
 
 
-def analyze(status, csv_table_path, regex_pattern_file='', thresholds=''):
+def analyze(csv_table_path, regex_pattern_file=None, thresholds=None):
+    """表格敏感数据分析，识别出每一列数据所属敏感数据类型，如果不是敏感数据则为"OTHER"
+
+    Args:
+        csv_table_path: 数据表文件路径，csv文件
+        regex_pattern_file: 自定义类型的识别正则表达式文件，json文件
+        thresholds: 敏感数据识别判断阈值，一列中某个敏感数据类型的占比达到阈值后则认为是此列数据是该敏感数据类型
+
+    Returns:
+        敏感数据识别结果字典，键为列名，值为字典。值字典中"success"是否识别成功，"type"表示敏感数据类型，"fraction"表示该列中type类型的占比。
+        eg: {"qq": {"success": True, "type": "OTHER", "fraction": "9/10"},
+        "pwd": {"success": True, "type": "PASSWORD", "fraction": "10/10"}}
+
+    """
     LOGGER.info('start analyzing......')
     try:
         data_table = pd.read_csv(csv_table_path, dtype=str)
     except Exception as error:
-        LOGGER.error(error)
-        status.code = sensitive_pb2.FILE_READ_ERROR
-        status.msg = '待识别数据表文件{}读取失败。'.format(csv_table_path)
-        return status, {}
+        raise FILE_READ_ERROR(error) from error
 
     LOGGER.info('table columns: {}'.format(len(data_table.columns)))
     LOGGER.info('table rows: {}'.format(len(data_table)))
@@ -29,24 +37,9 @@ def analyze(status, csv_table_path, regex_pattern_file='', thresholds=''):
     data_table = data_table.fillna('')  #空值是nan，取出来后的数据类型是float
 
     if regex_pattern_file is not None:
-        try:
-            analyzer = AnalyzerEngine(regex_pattern_file)
-        except Exception as error:
-            status.code = sensitive_pb2.ANY_COLUMN_RECOGNIZE_ERROR
-            status.msg = '敏感数据识别引擎初始化失败'
-            LOGGER.error(error)
-            return status, {}
+        analyzer = AnalyzerEngine(regex_pattern_file)
     else:
-        try:
-            analyzer = AnalyzerEngine()
-        except Exception as error:
-            status.code = sensitive_pb2.ANY_COLUMN_RECOGNIZE_ERROR
-            status.msg = '敏感数据识别引擎初始化失败'
-            LOGGER.error(error)
-            return status, {}
-
-    if thresholds != '':
-        thresholds = json.loads(thresholds)
+        analyzer = AnalyzerEngine()
 
     result_dic = dict()
     success_flag_dic = dict()
@@ -57,8 +50,6 @@ def analyze(status, csv_table_path, regex_pattern_file='', thresholds=''):
             success_flag_dic[name] = True
         except Exception as error:
             success_flag_dic[name] = False
-            status.code = sensitive_pb2.ANY_COLUMN_RECOGNIZE_ERROR
-            status.msg = "存在敏感数据识别失败的列。"
             LOGGER.error(error)
 
     result = {}
@@ -85,9 +76,4 @@ def analyze(status, csv_table_path, regex_pattern_file='', thresholds=''):
         result[key] = {'success': success_flag_dic[key],
                        'type': entity,
                        'fraction': str(most_cnt)+'/'+str(len(values))}
-
-    LOGGER.info('analyzing finished.')
-    if status.code == sensitive_pb2.OK:
-        status.msg = '识别成功。'
-
-    return status, result
+    return result

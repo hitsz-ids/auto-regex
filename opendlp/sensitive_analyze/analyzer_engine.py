@@ -1,4 +1,4 @@
-import re
+
 from collections import Counter
 from itertools import compress
 from typing import Optional, List
@@ -6,18 +6,34 @@ from typing import Optional, List
 from opendlp.sensitive_analyze.entity_classify.classifier import EntityClassifier
 from opendlp.sensitive_analyze.entity_recognize import RecognizerEngine
 from opendlp.sensitive_analyze.entity_recognize import RecognizerRegistry
-from opendlp.sensitive_analyze.entity_recognize.conf import config
 from opendlp.sensitive_analyze.entity_recognize.utils import get_threshold
+from opendlp.sensitive_analyze.utils import filter_entities
 
 
 class AnalyzerEngine:
+    """
+    敏感数据分析引擎
+    """
     def __init__(self, pattern_file: Optional[str] = ''):
+        """敏感数据分析引擎构造函数
+        Args:
+            pattern_file: 自定义类型的识别正则表达式文件，json文件
+        """
         self.pattern_file = pattern_file
         self.entity_classifier = EntityClassifier()
         self.registry = RecognizerRegistry(pattern_file)
         self.recognizer_engine = RecognizerEngine()
 
     def analyze(self, texts: List[str], thresholds):
+        """对字符串列表中的数据进行敏感数据分析
+
+        Args:
+            texts: 字符串列表
+            thresholds: 敏感数据识别判断阈值，一列中某个敏感数据类型的占比达到阈值后则认为是此列数据是该敏感数据类型
+
+        Returns:
+            字符串列表中每一个字符串的敏感数据类型
+        """
 
         result_predefined = self.analyze_predefined(texts)
 
@@ -42,6 +58,14 @@ class AnalyzerEngine:
             return result_predefined
 
     def analyze_predefined(self, texts: List[str]):
+        """对字符串列表中的数据用内置敏感数据类型进行敏感数据分析
+
+        Args:
+            texts: 字符串列表
+
+        Returns:
+            字符串列表中每一个字符串的敏感数据类型，未识别出敏感数据类型的为None
+        """
         candi_entities = self.entity_classifier.predict(texts)
         candi_entities = filter_entities(candi_entities)
 
@@ -94,6 +118,15 @@ class AnalyzerEngine:
         return result
 
     def analyze_userdefined(self, texts: List[str], result_predefined: List):
+        """对字符串列表中的数据用用户自定义敏感数据类型进行敏感数据分析
+
+        Args:
+            texts: 字符串列表
+            result_predefined: 字符串列表中各个字符串用内置敏感数据类型的分析结果，没有识别出敏感数据类型的为None
+
+        Returns:
+            字符串列表中每一个字符串经过内置类型和自定义类型识别后的敏感数据类型
+        """
         result = result_predefined
 
         recognizers = self.registry.load_user_defined_recognizers()
@@ -127,21 +160,3 @@ class AnalyzerEngine:
         return result
 
 
-def filter_entities(candi_entities):
-    """
-    筛选掉不合理的实体类型，如非汉字文本中的PERSON实体。主要是为了减少调用NLP模型的次数。
-    Args:
-        candi_entities: 文本对应的候选实体词典
-
-    Returns: dict
-    """
-    chinese_pattern = r'[\u4e00-\u9fa5]'
-    for text, entity_list in candi_entities.items():
-        if config.PERSON in entity_list or config.LOCATION in entity_list \
-                or config.COMPANY_NAME in entity_list:
-            match = re.search(chinese_pattern, text, re.MULTILINE)
-            if match is None:
-                left = [x for x in entity_list if x not in
-                        (config.PERSON, config.LOCATION, config.COMPANY_NAME)]
-                candi_entities[text] = left
-    return candi_entities

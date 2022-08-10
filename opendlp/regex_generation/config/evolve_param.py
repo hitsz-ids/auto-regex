@@ -1,10 +1,10 @@
 
 
 class EvolutionParam:
-    def __init__(self):
+    def __init__(self, population_size_decay_rate, min_population_size):
 
-        self.population_size_decay_rate = 0.95
-        self.min_population_size = 200
+        self.population_size_decay_rate = population_size_decay_rate
+        self.min_population_size = min_population_size
 
         self.crossover_proba = 0.8
         self.mutation_proba = 0.1

@@ -1,5 +1,5 @@
 import grpc
-from grpc_module import sensitive_pb2, sensitive_pb2_grpc
+from service.grpc_module import sensitive_pb2, sensitive_pb2_grpc
 import os
 
 

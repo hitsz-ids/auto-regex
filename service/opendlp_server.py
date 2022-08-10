@@ -5,9 +5,9 @@ import logging
 from logging.config import fileConfig
 import grpc
 from concurrent import futures
-from grpc_module import sensitive_pb2, sensitive_pb2_grpc
-from util import check_param_sensitive, check_param_regex_generate
-from opendlp.sensitive_analyze import table_analyzer
+from service.grpc_module import sensitive_pb2, sensitive_pb2_grpc
+from service.util import check_param_sensitive, check_param_regex_generate
+from opendlp.sensitive_analyze import table_analyzer, exceptions
 from opendlp.regex_generation import generator
 
 
@@ -33,10 +33,28 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
         status = sensitive_pb2.Status()
         status.code = sensitive_pb2.OK
         status = check_param_sensitive(status, to_analyze_file_path, user_define_pattern_file, thresholds)
+        if thresholds != '':
+            thresholds = json.loads(thresholds)
+        else:
+            thresholds = dict()
         result = {}
         if status.code == sensitive_pb2.OK:
-            status, result = table_analyzer.analyze(status, to_analyze_file_path, user_define_pattern_file, thresholds)
+            try:
+                result = table_analyzer.analyze(to_analyze_file_path, user_define_pattern_file, thresholds)
+            except exceptions.FILE_READ_ERROR as error:
+                LOGGER.error(error)
+                status.code = sensitive_pb2.FILE_READ_ERROR
+                status.msg = '待识别数据表文件{}读取失败。'.format(to_analyze_file_path)
+                result = {}
+            except Exception as error:
+                LOGGER.error(error)
+                status.code = sensitive_pb2.SENSITIVE_ANALYZE_ERROR
+                status.msg = '敏感数据识别失败。'
+                result = {}
+            else:
+                status.msg = '敏感数据识别成功。'
 
+        LOGGER.info('------ 敏感数据识别完成。')
         return sensitive_pb2.SensitiveResponse(status=status, result=json.dumps(result))
 
     def RegexGenerate(self, request, context):
@@ -54,9 +72,15 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
         status = check_param_regex_generate(status, regex_name, train_data_file)
         result = sensitive_pb2.Result()
         if status.code == sensitive_pb2.OK:
-            res = generator.generate(regex_name, train_data_file)
-            result.regex_name = res['regex_name']
-            result.regex_pattern = res['regex_pattern']
+            try:
+                res = generator.generate(regex_name, train_data_file)
+            except exceptions as error:
+                LOGGER.error(error)
+                status.code = sensitive_pb2.REGEX_GENERATE_ERROR
+                status.msg = '正则表达式生成失败。'
+            else:
+                result.regex_name = res['regex_name']
+                result.regex_pattern = res['regex_pattern']
 
         return sensitive_pb2.RegexGenerateResponse(status=status, result=result)
 

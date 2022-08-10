@@ -1,0 +1,5 @@
+include opendlp/sensitive_analyze/entity_classify/trained-model/label2id.pkl
+include opendlp/sensitive_analyze/entity_classify/trained-model/model.pt
+include opendlp/sensitive_analyze/entity_classify/trained-model/vocab.pkl
+
+include opendlp/sensitive_analyze/entity_recognize/predefined_recognizer/rule_recognizer/resources/*.json

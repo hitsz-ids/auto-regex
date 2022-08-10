@@ -1,5 +1,5 @@
 .idea/*
-log/*
+service/log/*
 **/__pycache__
 **/.DS_Store
 

@@ -6,17 +6,6 @@ openDLP根据不同的敏感数据的特点，采用正则表达式、人工智�
 
 openDLP的正则表达式生成功能能够基于提供的正、负训练样本数据，自动学习生成正则表达式。
 
-| 重要链接                                                     |                                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| :book:  [文档](https://opendlp.readthedocs.io/ )             | 项目文档                                                     |
-| :octocat:  [项目仓库](https://github.com/hitsz-ids/openDLP)  | 项目Github仓库                                               |
-| :scroll: [License](https://github.com/hitsz-ids/openDLP/blob/main/LICENSE) | Apache-2.0 license                                           |
-| <img src="docs/imgs/AI靶场logo.png" style="zoom:100%;" /> 示例 | 在[AI靶场](https://datai.pcl.ac.cn/)上运行opendlp示例（敬请期待） |
-
-[文档]: https://opendlp.readthedocs.io/
-[项目仓库]: https://github.com/hitsz-ids/openDLP
-[License]: https://github.com/hitsz-ids/openDLP/blob/main/LICENSE
-[AI靶场]: https://datai.pcl.ac.cn/
 
 ## 特性
 
@@ -130,9 +119,3 @@ result = generator.generate(regex_name, train_data_file, init_population_size=50
 ```
 id_card: \d{6,6}19\d{9,9}\w|\d{6,6}20\d{9,9}\w
 ```
-
-
-
-## 合作伙伴
-
-<img src="docs/imgs/奇安信.png" style="zoom:100%;" />  <img src="docs/imgs/昂楷.png" style="zoom:75%;" />    <img src="docs/imgs/傲天.jpeg" style="zoom:100%;" />

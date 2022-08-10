@@ -135,4 +135,4 @@ id_card: \d{6,6}19\d{9,9}\w|\d{6,6}20\d{9,9}\w
 
 ## 合作伙伴
 
-<img src="docs/imgs/奇安信.png" style="zoom:100%;" />  <img src="docs/imgs/昂楷.png" style="zoom:80%;" />    <img src="docs/imgs/傲天.png" style="zoom:125%;" />
+<img src="docs/imgs/奇安信.png" style="zoom:100%;" />  <img src="docs/imgs/昂楷.png" style="zoom:75%;" />    <img src="docs/imgs/傲天.png" style="zoom:150%;" />

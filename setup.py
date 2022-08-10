@@ -6,7 +6,7 @@ __version__ = '0.1.0'
 
 current_dir = path.abspath(path.dirname(__file__))
 
-with open(path.join(current_dir, 'README.md'), encoding='utf-8') as f:
+with open(path.join(current_dir, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 with open(path.join(current_dir, 'requirements.txt'), encoding='utf-8') as f:
@@ -25,7 +25,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9'
+        'Programming Language :: Python :: 3.9',
         'License :: OSI Approved :: Apache Software License',
     ],
 

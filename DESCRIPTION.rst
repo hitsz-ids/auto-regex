@@ -13,4 +13,4 @@ Installation
 Github
 ========================================
 
-For more informationm, see github repo: https://github.com/Wh1isper/davincirunsdk
+For more informationm, see github repo: https://github.com/hitsz-ids/openDLP

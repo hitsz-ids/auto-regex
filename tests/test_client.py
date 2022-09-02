@@ -120,7 +120,7 @@ class TestSensitiveServiceNormal(unittest.TestCase):
         status, result = send_request(to_analyze_file_path)
         print(result)
         self.assertEqual(status.code, 0)
-        self.assertEqual(status.msg, '识别成功。')
+        self.assertEqual(status.msg, '敏感数据识别成功。')
         self.assertEqual(strip_white_space(result), strip_white_space(
             '''{"PERSON": {"success": true, "type": "PERSON", "fraction": "969/1000"},
          "ID_CARD": {"success": true, "type": "ID_CARD", "fraction": "1000/1000"},

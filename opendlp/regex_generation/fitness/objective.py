@@ -57,7 +57,9 @@ class Objective:
         neg_math_count = self.match_sample_count(neg_match_spans, is_positive=False)
         score = 0
         if pos_math_count + neg_math_count != 0:
-            score = pos_math_count / (pos_math_count + neg_math_count)
+            precision = pos_math_count / (pos_math_count + neg_math_count)
+            recall = pos_math_count / self.dataset.pos_examples
+            score = 0 if precision+recall == 0 else 2*precision*recall / (precision+recall)
         return score
 
     def cal_char_score(self, pos_match_spans, neg_match_spans):

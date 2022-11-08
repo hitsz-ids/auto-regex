@@ -16,13 +16,11 @@ class Objective:
         pos_match_spans = self.get_match_span(tree, is_positive=True)
         neg_match_spans = self.get_match_span(tree, is_positive=False)
 
-        # 这里的算法，负样本匹配数相同时，正样本匹配1个与匹配所有算出来的score是一样的。
-        # 只用了precision，没用recall，为什么不考虑recall呢？  recall由后面的分治法考虑？
-        score_sample = self.cal_sample_score(pos_match_spans, neg_match_spans)  # precision
+        score_precision, score_recall = self.cal_sample_score(pos_match_spans, neg_match_spans)
         score_char = self.cal_char_score(pos_match_spans, neg_match_spans)
         score_length = self.cal_length_score(tree)
 
-        return (score_sample, score_char, score_length)
+        return (score_precision, score_recall, score_char, score_length)
 
 
     def get_match_span(self, tree, is_positive):
@@ -55,12 +53,13 @@ class Objective:
     def cal_sample_score(self, pos_match_spans, neg_match_spans):
         pos_math_count = self.match_sample_count(pos_match_spans, is_positive=True)
         neg_math_count = self.match_sample_count(neg_match_spans, is_positive=False)
-        score = 0
+        precision, recall = 0, 0
         if pos_math_count + neg_math_count != 0:
             precision = pos_math_count / (pos_math_count + neg_math_count)
-            recall = pos_math_count / self.dataset.pos_examples
-            score = 0 if precision+recall == 0 else 2*precision*recall / (precision+recall)
-        return score
+        if len(self.dataset.pos_examples) != 0:
+            recall = pos_math_count / len(self.dataset.pos_examples)
+
+        return precision, recall
 
     def cal_char_score(self, pos_match_spans, neg_match_spans):
         pos_match_char_cnt, pos_unmatch_char_cnt = self.match_char_count(pos_match_spans, is_positive=True)

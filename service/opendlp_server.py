@@ -76,7 +76,7 @@ class DLPServer(sensitive_pb2_grpc.OpenDlpServiceServicer):
         if status.code == sensitive_pb2.OK:
             try:
                 res = generator.generate(regex_name, train_data_file)
-            except exceptions as error:
+            except Exception as error:
                 LOGGER.error(error)
                 status.code = sensitive_pb2.REGEX_GENERATE_ERROR
                 status.msg = '正则表达式生成失败。'

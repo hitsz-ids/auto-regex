@@ -16,7 +16,7 @@ def generate(regex_name,
              init_population_size=1000,
              max_iterations=2000,
              precision_divide_conquer=0.8,
-             iteration_divide_conquer=30,
+             iteration_divide_conquer=10,
              noise_positive_sample_ratio=0.05,
              population_size_decay_rate=0.95,
              min_population_size=200):

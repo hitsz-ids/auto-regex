@@ -16,7 +16,9 @@ class Fitness:
 
     @property
     def fitness(self):
-        return sum(self.__fitness_arr)
+        p, r = self.__fitness_arr[0], self.__fitness_arr[1]
+        f1 = 2*p*r/(p+r) if p+r != 0 else 0
+        return 0.7*f1 + 0.2*self.__fitness_arr[2] + 0.1*self.__fitness_arr[3]
 
     def __eq__(self, other):
         return self.fitness == other.fitness

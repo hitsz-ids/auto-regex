@@ -1,14 +1,12 @@
 # openDLP
 
-openDLP（open data loss prevention）是一个敏感数据识别工具，支持对结构化数据表进行敏感数据识别，可以帮助企业进行数据资产分类分级，保护数据安全。
+openDLP（open Data Loss Prevention）是一个针对结构化数据表的敏感数据识别工具，使用正则表达式、人工智能算法、数据校验规则等多种技术对结构化数据表进行字段级敏感数据识别，可以帮助企业和组织进行数据资产分类分级，保障数据安全。
 
-openDLP根据不同的敏感数据的特点，采用正则表达式、人工智能算法等不同方法进行敏感数据识别，内置支持了多种敏感数据类型，同时支持自定义敏感数据类型识别。
-
-openDLP的正则表达式生成功能能够基于提供的正、负训练样本数据，自动学习生成正则表达式。
+正则表达式是敏感数据识别的常用技术手段，openDLP的正则表达式智能生成功能能够基于提供的正、负训练样本数据，自动学习生成正则表达式，帮助提高正则表达式编写效率。
 
 | 重要链接                                                     |                                                              |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| :book:  [文档](https://opendlp.readthedocs.io)               | 项目文档                                                     |
+| :book:  [文档](https://opendlp.readthedocs.io)               | 项目API文档                                                  |
 | :octocat:  [项目仓库](https://github.com/hitsz-ids/openDLP)  | 项目Github仓库                                               |
 | :scroll: [License](https://github.com/hitsz-ids/openDLP/blob/main/LICENSE) | Apache-2.0 license                                           |
 | <img src="docs/imgs/AI靶场logo.png" style="zoom:100%;" /> 示例 | 在[AI靶场](https://datai.pcl.ac.cn/)上运行opendlp示例（敬请期待） |
@@ -18,7 +16,9 @@ openDLP的正则表达式生成功能能够基于提供的正、负训练样本�
 [License]: https://github.com/hitsz-ids/openDLP/blob/main/LICENSE
 [AI靶场]: https://datai.pcl.ac.cn/
 
-## 特性
+
+
+## 主要特性
 
 + 表格数据敏感数据识别：
   + 目前支持身份证号、人名等17中常见敏感数据类型识别，详见：[文档](https://opendlp.readthedocs.io)
@@ -30,13 +30,15 @@ openDLP的正则表达式生成功能能够基于提供的正、负训练样本�
 
 
 
-## 安装
+## 如何安装
 
-可通过如下命令进行安装：
+推荐使用 pip 命令进行安装：
 
 ```bash
 pip install opendlp
 ```
+
+将从[PyPI](https://pypi.org/)获取并安装最新的稳定版本。
 
 
 
@@ -113,8 +115,6 @@ result = table_analyzer.analyze(csv_table_path, regex_pattern_file, threshold)
 
 “QQ”为数据表中的列名，“success”标识该列是否识别成功，“type”为识别成的敏感数据类型，OTHER表示不是敏感数据类型，“fraction”为该列中识别比例最高的类型的占比，这里的"9/10"的含义是该列有10个元素，有9个识别为了QQ，但QQ的判断阈值设置的是1，大于0.9，所以其类型被判断为了OTHER。
 
-
-
 ### 正则表达式生成
 
 ```python
@@ -133,6 +133,34 @@ id_card: \d{6,6}19\d{9,9}\w|\d{6,6}20\d{9,9}\w
 
 
 
-## 合作伙伴
+## 关于API
+
+openDLP提供了表格敏感数据识别和正则表达式生成接口，具体接口参数请参考 [API文档](https://opendlp.readthedocs.io/en/latest/api/index.html)。
+
+
+
+## 代码贡献
+
+openDLP开源项目由**哈尔滨工业大学（深圳）-数据安全研究院**发起，发起人为刘川意博士。若您对openDLP项目感兴趣并愿意一起完善它，欢迎加入我们的开源社区。
+
+### Owner
+
++ Longice(zekuncao@gmail.com) 
+
+### Maintainer
+
++ Longice(zekuncao@gmail.com) 
+
+您可以联系项目Owner，若您通过审核便可成为openDLP的Maintainer成员之一。
+
+
+
+## 关于授权
+
+openDLP开源项目使用 Apache-2.0 license，有关协议请参考[LICENSE](https://github.com/hitsz-ids/openDLP/blob/main/LICENSE)。
+
+
+
+## Used by
 
 <img src="docs/imgs/组织.png" alt="组织" style="zoom:50%;" />

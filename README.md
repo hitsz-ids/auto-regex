@@ -44,17 +44,9 @@ pip install opendlp
 
 ## 快速开始
 
-### 表格敏感数据识别
+### 结构化数据表敏感字段识别
 
-#### 下载资源文件（可选）
-
-本项目中的命名实体识别使用了HanLP开源项目中的模型，使用前需先下载相关模型文件并解压到指定目录，如未手动下载，第一次运行时会自动下载。
-
-+ [close_tok_pos_ner_srl_dep_sdp_con_electra_small_20210111_124159.zip](https://file.hankcs.com/hanlp/mtl/close_tok_pos_ner_srl_dep_sdp_con_electra_small_20210111_124159.zip) 下载解压到HANLP_HOME/mtl，其中HANLP_HOME默认为/root/.hanlp，可修改。
-+ [electra_zh_small_20210706_125427.zip](https://file.hankcs.com/hanlp/transformers/electra_zh_small_20210706_125427.zip) 下载解压到HANLP_HOME/transformers。
-+ [char_table.json.zip](https://file.hankcs.com/corpus/char_table.json.zip) 下载解压到HANLP_HOME/thirdparty/file.hankcs.com/corpus。
-
-#### 内置敏感数据类型识别
+#### 示例1：使用内置敏感数据类型识别
 
 ```python
 from opendlp.sensitive_analyze import table_analyzer
@@ -96,7 +88,7 @@ print(result)
  'DATE': {'success': True, 'type': 'DATE', 'fraction': '1000/1000'}}
 ```
 
-#### 用户自定义敏感数据类型识别
+#### 示例2：使用用户自定义敏感数据类型识别
 
 ```python
 csv_table_path = 'openDLP/tests/data/data-udf.csv'
@@ -115,21 +107,7 @@ result = table_analyzer.analyze(csv_table_path, regex_pattern_file, threshold)
 
 “QQ”为数据表中的列名，“success”标识该列是否识别成功，“type”为识别成的敏感数据类型，OTHER表示不是敏感数据类型，“fraction”为该列中识别比例最高的类型的占比，这里的"9/10"的含义是该列有10个元素，有9个识别为了QQ，但QQ的判断阈值设置的是1，大于0.9，所以其类型被判断为了OTHER。
 
-### 正则表达式生成
-
-```python
-from opendlp.regex_generation import generator
-regex_name = 'id_card'
-train_data_file = '../openDLP/tests/data/regex_generation/test-data/ID_CARD.csv'
-
-result = generator.generate(regex_name, train_data_file, init_population_size=500, max_iterations=100)
-```
-
-会输出类似下面这样的信息：
-
-```
-id_card: \d{6,6}19\d{9,9}\w|\d{6,6}20\d{9,9}\w
-```
+更多使用示例见：[文档](https://opendlp.readthedocs.io/en/latest/README.html)
 
 
 
@@ -141,7 +119,7 @@ openDLP提供了表格敏感数据识别和正则表达式生成接口，具体�
 
 ## 代码贡献
 
-openDLP开源项目由**哈尔滨工业大学（深圳）-数据安全研究院**发起，发起人为刘川意博士。若您对openDLP项目感兴趣并愿意一起完善它，欢迎加入我们的开源社区。
+openDLP开源项目由**哈尔滨工业大学（深圳）数据安全研究院**发起，若您对openDLP项目感兴趣并愿意一起完善它，欢迎加入我们的开源社区。
 
 ### Owner
 

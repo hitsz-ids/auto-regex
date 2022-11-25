@@ -1,5 +1,11 @@
 # openDLP
 
+结构化与半结构化数据敏感数据识别工具。
+
+
+
+## 简介
+
 openDLP(open Data Loss Prevention)是一个敏感数据识别工具，使用正则表达式、人工智能算法、数据校验规则等多种技术对结构化数据表和Json之类的半结构化数据进行字段级敏感数据识别，可以帮助企业和组织进行数据资产分类分级，保障数据安全。
 
 正则表达式是敏感数据识别的常用技术手段，openDLP的正则表达式智能生成功能能够基于提供的正、负训练样本数据，自动学习生成正则表达式，帮助提高正则表达式编写效率。
@@ -18,6 +24,26 @@ openDLP(open Data Loss Prevention)是一个敏感数据识别工具，使用正�
 
 
 
+## 目录
+
+- [主要特性](#主要特性)
+
+- [安装](#安装)
+
+- [快速开始](#快速开始)
+
+- [API](#API)
+
+- [维护者](#维护者)
+
+- [如何贡献](#如何贡献)
+
+- [许可证](#许可证)
+
+- [Used by](#Used-by)
+
+
+
 ## 主要特性
 
 + 表格数据敏感数据识别：
@@ -30,7 +56,7 @@ openDLP(open Data Loss Prevention)是一个敏感数据识别工具，使用正�
 
 
 
-## 如何安装
+## 安装
 
 推荐使用 pip 命令进行安装：
 
@@ -111,13 +137,13 @@ result = table_analyzer.analyze(csv_table_path, regex_pattern_file, threshold)
 
 
 
-## 关于API
+## API
 
 openDLP提供了表格敏感数据识别和正则表达式生成接口，具体接口参数请参考 [API文档](https://opendlp.readthedocs.io/en/latest/api/index.html)。
 
 
 
-## 代码贡献
+## 维护者
 
 openDLP开源项目由**哈尔滨工业大学（深圳）数据安全研究院**发起，若您对openDLP项目感兴趣并愿意一起完善它，欢迎加入我们的开源社区。
 
@@ -133,7 +159,13 @@ openDLP开源项目由**哈尔滨工业大学（深圳）数据安全研究院**
 
 
 
-## 关于授权
+## 如何贡献
+
+非常欢迎你的加入！[提一个 Issue](https://github.com/hitsz-ids/openDLP/issues/new) 或者提交一个 Pull Request。
+
+
+
+## 许可证
 
 openDLP开源项目使用 Apache-2.0 license，有关协议请参考[LICENSE](https://github.com/hitsz-ids/openDLP/blob/main/LICENSE)。
 
@@ -141,4 +173,13 @@ openDLP开源项目使用 Apache-2.0 license，有关协议请参考[LICENSE](ht
 
 ## Used by
 
+### 开源项目
+
++ [eoapi](https://github.com/eolinker/eoapi)：一个可拓展的 API 工具，简单（Easy） & 开源（OpenSource）的 API 生态系统
+
+
+
+### 组织
+
 <img src="docs/imgs/组织.png" alt="组织" style="zoom:50%;" />
+

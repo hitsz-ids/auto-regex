@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package hitszids.wf.autoregex.api.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "AutoRegexProto";
+option java_package = "org.hitszids.wf.autoregex.api.v1";
+
+service AutoRegexService{
+
+  // 正则表达式生成接口
+  rpc RegexGenerate(Request) returns (Response) {};
+}
+
+
+// 正则表达式生成请求
+message Request{
+  string regex_name = 1;
+  string train_data_file = 2;
+}
+
+// 正则表达式生成响应
+message Response{
+  // 状态码
+  Status status = 1;
+
+  // 结果
+  Result result = 2;
+}
+
+message Result{
+  string regex_name = 1;
+  string regex_pattern = 2;
+}
+
+
+// 接口请求的应答状态码、消息
+message Status {
+  // 应答状态码
+  StatusCode code = 1;
+
+  // 应答消息
+  string msg = 2;
+}
+
+// 应答状态码枚举值
+enum StatusCode {
+  // 成功,所有列都正常返回识别结果
+  OK = 0;
+
+  // 参数有误, 文件不存在也属于参数有误
+  PARAMETER_ERROR = 10000;
+
+  // 读取数据文件失败
+  FILE_READ_ERROR = 10001;
+
+  // 正则表达式生成失败
+  REGEX_GENERATE_ERROR = 10002;
+}

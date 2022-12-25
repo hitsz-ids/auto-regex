@@ -13,11 +13,11 @@ with open(path.join(current_dir, 'requirements.txt'), encoding='utf-8') as f:
     install_requires = [x.strip() for x in f.read().split('\n')]
 
 setup(
-    name='opendlp',
+    name='auto-regex',
     version=__version__,
-    description='openDLP',
+    description='auto-regex',
     long_description=long_description,
-    url='https://github.com/hitsz-ids/openDLP',
+    url='https://github.com/hitsz-ids/auto-regex',
     license='Apache License 2.0',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -29,7 +29,7 @@ setup(
         'License :: OSI Approved :: Apache Software License',
     ],
 
-    keywords='privacy, dlp, data-protection, data-loss-prevention, sensitive-data-discovery',
+    keywords='aotu-regex, privacy',
     packages=find_packages(exclude=['docs', 'tests*', 'service']),
     include_package_data=True,
     author='histsz-ids',

@@ -3,13 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to openDLP's documentation!
+Welcome to auto-regex's documentation!
 ===================================
 
 项目仓库地址
 ============
 
-* `Github <https://github.com/hitsz-ids/openDLP>`_
+* `Github <https://github.com/hitsz-ids/auto-regex>`_
 
 .. toctree::
    :maxdepth: 2

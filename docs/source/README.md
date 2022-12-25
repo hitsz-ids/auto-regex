@@ -1,161 +1,109 @@
-# openDLP
+# auto-regex
 
-openDLP（open data loss prevention）是一个敏感数据识别工具，支持对结构化数据表进行敏感数据识别，可以帮助企业进行数据资产分类分级，保护数据安全。
-
-openDLP根据不同的敏感数据的特点，采用正则表达式、人工智能算法等不同方法进行敏感数据识别，内置支持了多种敏感数据类型，同时支持自定义敏感数据类型识别。
-
-openDLP的正则表达式生成功能能够基于提供的正、负训练样本数据，自动学习生成正则表达式。
+auto-regex是一个正则表达式智能生成工具，可以基于用户提供的少量某个类型的样本数据，学习该类数据的模式特征，自动生成识别该类型数据的正则表达式，帮助提高在数据类型识别场景中的正则表达式编写效率。
 
 
-## 特性
 
-+ 表格数据敏感数据识别：
-  + 目前支持身份证号、人名等17中常见敏感数据类型识别。详见”支持的敏感数据类型“部分。
-  + 对于不在内置类型中的类别，支持用户传入正则表达式，对自定义敏感数据类型进行识别；
-  + 采用神经网络分类模型、实体识别、正则表达式、数据校验规则等技术进行敏感数据识别。
-+ 正则表达式生成：
-  + 基于正、负样本数据，自动学习生成正则表达式；
-  + 考虑了样本数据串中的频繁子字符串，能够捕获到数据中的细节特征。
+## 目录
+
+- [应用场景](#应用场景)
+- [主要特性](#主要特性)
+- [安装](#安装)
+- [快速开始](#快速开始)
+- [API](#API)
+- [维护者](#维护者)
+- [如何贡献](#如何贡献)
+- [许可证](#许可证)
+- [Used by](#Used-by)
+
+
+
+## 应用场景
+
+- 数据分类分级
+
+  数据分类分级场景中，数据库中有大量数据表和字段，人工一个个查看分析标注敏感类型，效率低。通过正则表达式智能生成工具，对每一个敏感类型，只需人工查看少量表，找到一列该类型数据，提供给正则表达式智能生成工具，生成正则表达式，对数据库中其他大量的表字段进行敏感类型识别。
+
+- 数据流动过程中的敏感数据识别
+
+  数据库中的数据在应用程序间流动时在数据分类分级阶段标注的敏感标签一般不会被保留，通过正则表达式智能生成工具生成的正则表达式可以在数据流动的关键节点上进行敏感数据识别，掌握敏感数据的流向。
+
+  
+
+## 主要特性
+
++ 基于正、负样本数据，自动学习生成正则表达式；
++ 考虑了样本数据串中的频繁子字符串，能够捕获到数据中的细节特征。
 
 
 
 ## 安装
 
-可通过如下命令进行安装：
+推荐使用 pip 命令进行安装：
 
 ```bash
-pip install opendlp
+pip install auto-regex
 ```
+
+将从[PyPI](https://pypi.org/)获取并安装最新的稳定版本。
 
 
 
 ## 快速开始
 
-### 表格敏感数据识别
-
-#### 下载资源文件（可选）
-
-本项目中的命名实体识别使用了HanLP开源项目中的模型，使用前需先下载相关模型文件并解压到指定目录，如未手动下载，第一次运行时会自动下载。
-
-+ [close_tok_pos_ner_srl_dep_sdp_con_electra_small_20210111_124159.zip](https://file.hankcs.com/hanlp/mtl/close_tok_pos_ner_srl_dep_sdp_con_electra_small_20210111_124159.zip) 下载解压到HANLP_HOME/mtl，其中HANLP_HOME默认为/root/.hanlp，可修改。
-+ [electra_zh_small_20210706_125427.zip](https://file.hankcs.com/hanlp/transformers/electra_zh_small_20210706_125427.zip) 下载解压到HANLP_HOME/transformers。
-+ [char_table.json.zip](https://file.hankcs.com/corpus/char_table.json.zip) 下载解压到HANLP_HOME/thirdparty/file.hankcs.com/corpus。
-
-#### 内置敏感数据类型识别
-
 ```python
-from opendlp.sensitive_analyze import table_analyzer
-# openDLP github项目中的数据，根据实际情况修改路径
-csv_table_path = 'openDLP/tests/data/dataset-test.csv'   
-result = table_analyzer.analyze(csv_table_path)
-print(result)
-```
-
-输出如下：
-
-```
-{'PERSON': {'success': True, 'type': 'PERSON', 'fraction': '969/1000'},
- 'ID_CARD': {'success': True, 'type': 'ID_CARD', 'fraction': '1000/1000'},
- 'TELEPHONE': {'success': True, 'type': 'TELEPHONE', 'fraction': '1000/1000'},
- 'MOBILE_PHONE': {'success': True,
-  'type': 'MOBILE_PHONE',
-  'fraction': '1000/1000'},
- 'EMAIL': {'success': True, 'type': 'EMAIL', 'fraction': '971/1000'},
- 'LICENSE_PLATE': {'success': True,
-  'type': 'LICENSE_PLATE',
-  'fraction': '1000/1000'},
- 'BANK_CARD': {'success': True, 'type': 'BANK_CARD', 'fraction': '1000/1000'},
- 'PASSPORT': {'success': True, 'type': 'PASSPORT', 'fraction': '1000/1000'},
- 'COMPANY_NAME': {'success': True,
-  'type': 'COMPANY_NAME',
-  'fraction': '789/1000'},
- 'SOCIAL_CREDIT_CODE': {'success': True,
-  'type': 'SOCIAL_CREDIT_CODE',
-  'fraction': '1000/1000'},
- 'IPV4': {'success': True, 'type': 'IPV4', 'fraction': '1000/1000'},
- 'IPV6': {'success': True, 'type': 'IPV6', 'fraction': '1000/1000'},
- 'MAC': {'success': True, 'type': 'MAC', 'fraction': '1000/1000'},
- 'DOMAIN_NAME': {'success': True,
-  'type': 'DOMAIN_NAME',
-  'fraction': '965/1000'},
- 'LOCATION': {'success': True, 'type': 'LOCATION', 'fraction': '997/1000'},
- 'POSTCODE': {'success': True, 'type': 'POSTCODE', 'fraction': '993/1000'},
- 'DATE': {'success': True, 'type': 'DATE', 'fraction': '1000/1000'}}
-```
-
-#### 用户自定义敏感数据类型识别
-
-```python
-csv_table_path = 'openDLP/tests/data/data-udf.csv'
-regex_pattern_file = 'openDLP/tests/data/pattern.json'
-threshold = {'QQ':1}
-
-result = table_analyzer.analyze(csv_table_path, regex_pattern_file, threshold)
-```
-
-输出如下：
-
-```
-{'QQ': {'success': True, 'type': 'OTHER', 'fraction': '9/10'},
- 'PASSWORD': {'success': True, 'type': 'PASSWORD', 'fraction': '10/10'}}
-```
-
-“QQ”为数据表中的列名，“success”标识该列是否识别成功，“type”为识别成的敏感数据类型，OTHER表示不是敏感数据类型，“fraction”为该列中识别比例最高的类型的占比，这里的"9/10"的含义是该列有10个元素，有9个识别为了QQ，但QQ的判断阈值设置的是1，大于0.9，所以其类型被判断为了OTHER。
-
-
-
-### 正则表达式生成
-
-```python
-from opendlp.regex_generation import generator
+from auto_regex.generator import generate
 regex_name = 'id_card'
-train_data_file = '../openDLP/tests/data/regex_generation/test-data/ID_CARD.csv'
+train_data_file = 'tests/data/ID_CARD.csv'  # 本项目下tests目录中的数据文件
 
-result = generator.generate(regex_name, train_data_file, init_population_size=500, max_iterations=100)
+result = generate(regex_name, train_data_file, init_population_size=500, max_iterations=100)
 ```
 
 会输出类似下面这样的信息：
 
-```
+```bash
 id_card: \d{6,6}19\d{9,9}\w|\d{6,6}20\d{9,9}\w
 ```
 
+train_data_file文件中有两列，第一列列名为'positive'，表示正样本，第二列列名为'negative'，表示负样本。对于身份证号码类型，正样本为身份证号码，负样本为非身份证号码数据，如电话号码。
 
 
-## 支持的敏感数据类型
 
- 目前内置支持17类敏感数据类型，可以通过自定义正则支持更多类型的识别。对于有地区和语言差异的类型，目前都是支持中国大陆地区、简体中文。具体敏感数据类型如下：
+## API
 
-1. 人名
+auto-regex提供了表格敏感数据识别和正则表达式生成接口，具体接口参数请参考 [API文档](https://opendlp.readthedocs.io/en/latest/api/index.html)。
 
-2. 身份证号
 
-3. 护照号
 
-4. 银行卡号
+## 维护者
 
-5. 车牌号
+auto-regex开源项目由**哈尔滨工业大学（深圳）数据安全研究院**发起，若您对auto-regex项目感兴趣并愿意一起完善它，欢迎加入我们的开源社区。
 
-6. 电子邮箱
+### Owner
 
-7. 邮政编码
++ Longice(zekuncao@gmail.com) 
 
-8. 移动手机号码
+### Maintainer
 
-9. 固定电话号码
++ Longice(zekuncao@gmail.com) 
 
-10. 地址
+您可以联系项目Owner，若您通过审核便可成为auto-regex的Maintainer成员之一。
 
-11. 公司名
 
-12. 统一社会信用代码
 
-13. 日期
+## 如何贡献
 
-14. 域名
+非常欢迎你的加入！[提一个 Issue](https://github.com/hitsz-ids/openDLP/issues/new) 或者提交一个 Pull Request。
 
-15. IPv4地址
 
-16. IPv6地址
 
-17. MAC地址
+## 许可证
+
+auto-regex开源项目使用 Apache-2.0 license，有关协议请参考[LICENSE](https://github.com/hitsz-ids/openDLP/blob/main/LICENSE)。
+
+
+
+## Used by
+
+<img src="docs/imgs/组织.png" alt="组织" style="zoom:50%;" />
+

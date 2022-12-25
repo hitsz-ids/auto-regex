@@ -71,7 +71,7 @@ train_data_file文件中有两列，第一列列名为'positive'，表示正样�
 
 ## API
 
-auto-regex提供了表格敏感数据识别和正则表达式生成接口，具体接口参数请参考 [API文档]。
+auto-regex提供了表格敏感数据识别和正则表达式生成接口，具体接口参数请参考 [API文档](https://auto-regex.readthedocs.io/en/latest/api/index.html)。
 
 
 

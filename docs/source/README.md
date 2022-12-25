@@ -71,7 +71,7 @@ train_data_file文件中有两列，第一列列名为'positive'，表示正样�
 
 ## API
 
-auto-regex提供了表格敏感数据识别和正则表达式生成接口，具体接口参数请参考 [API文档](https://opendlp.readthedocs.io/en/latest/api/index.html)。
+auto-regex提供了表格敏感数据识别和正则表达式生成接口，具体接口参数请参考 [API文档](https://auto-regex.readthedocs.io/en/latest/api/index.html)。
 
 
 
@@ -93,13 +93,13 @@ auto-regex开源项目由**哈尔滨工业大学（深圳）数据安全研究�
 
 ## 如何贡献
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/hitsz-ids/openDLP/issues/new) 或者提交一个 Pull Request。
+非常欢迎你的加入！[提一个 Issue](https://github.com/hitsz-ids/auto-regex/issues/new) 或者提交一个 Pull Request。
 
 
 
 ## 许可证
 
-auto-regex开源项目使用 Apache-2.0 license，有关协议请参考[LICENSE](https://github.com/hitsz-ids/openDLP/blob/main/LICENSE)。
+auto-regex开源项目使用 Apache-2.0 license，有关协议请参考[LICENSE](https://github.com/hitsz-ids/auto-regex/blob/main/LICENSE)。
 
 
 

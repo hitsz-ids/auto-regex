@@ -1,2 +1,0 @@
-regex_name,regex_pattern
-ID_CARD,"\d\d\d\d\d\d19\d\d\d\d\d\d\d\d\d\w|\d{6,6}20\d{9,9}\w"

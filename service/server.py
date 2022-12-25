@@ -6,7 +6,7 @@ import grpc
 from concurrent import futures
 from service.grpc_module import autoregex_pb2, autoregex_pb2_grpc
 from service.util import check_param_regex_generate
-from autoregex import generator
+from auto_regex import generator
 
 
 LOGGING_CONF_FILE = 'logging.ini'

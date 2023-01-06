@@ -1,0 +1,22 @@
+header:
+  - title:      Home
+    url:        /home.html
+  - title:      Docs
+    url:        /docs/zh/install
+    key:        docs
+  - title:      GitHub
+    url:        https://github.com/hitsz-ids/auto-regex
+
+
+docs-zh:
+  - title:      开始
+    children:
+      - title:  安装
+        url:    /docs/zh/install
+      - title:  快速开始
+        url:    /docs/zh/quick-start
+  - title:      API文档
+    children:
+      - title:  generate
+        url:    /docs/zh/generate
+

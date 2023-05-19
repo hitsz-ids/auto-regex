@@ -5,3 +5,4 @@ service/log/*
 dist/
 build/
 docs/build
+api_doc/

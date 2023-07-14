@@ -75,6 +75,41 @@ auto-regex提供了正则表达式生成接口，具体接口参数请参考 [AP
 
 
 
+## 实现原理
+
+主要原理基于以下论文：
+
+[Revisiting Regex Generation for Modeling Industrial Applications by Incorporating Byte Pair Encoder](https://arxiv.org/abs/2005.02558)
+
+
+
+## 测试效果
+
+使用身份证号、统一社会信用代码等数据生成的正则表达式，在新的测试数据上的评估指标如下：
+
+```
+                   precision    recall  f1-score   support
+                   
+           ID_CARD     0.9997    1.0000    0.9999     10000
+SOCIAL_CREDIT_CODE     0.4784    1.0000    0.6472     10000
+      MOBILE_PHONE     0.9890    0.0898    0.1646     10000
+              DATE     1.0000    1.0000    1.0000     10000
+         BANK_CARD     0.3204    0.7423    0.4476     10000
+       DOMAIN_NAME     1.0000    0.8446    0.9158     10000
+             EMAIL     1.0000    0.0229    0.0448     10000
+         TELEPHONE     0.8938    0.6079    0.7236     10000
+              IPV4     1.0000    0.0414    0.0795     10000
+          POSTCODE     1.0000    1.0000    1.0000     10000
+          PASSPORT     1.0000    1.0000    1.0000     10000
+               MAC     1.0000    1.0000    1.0000     10000
+     LICENSE_PLATE     1.0000    0.9494    0.9740     10000
+
+         micro avg     0.7725    0.7153    0.7428    130000
+         macro avg     0.8986    0.7153    0.6921    130000
+```
+
+
+
 ## 维护者
 
 auto-regex开源项目由**哈尔滨工业大学（深圳）数据安全研究院**发起，若您对auto-regex项目感兴趣并愿意一起完善它，欢迎加入我们的开源社区。

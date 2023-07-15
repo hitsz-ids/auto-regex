@@ -63,8 +63,8 @@ result = generate(regex_name, train_data_file, init_population_size=500, max_ite
 
 ```bash
 name: id_card, pattern: \d{6,6}19\d{9,9}\w|\d{6,6}20\d{9,9}\w, precision: 1.0, recall: 1.0
-name: \d\d\d\d\d\d19\d\d\d\d\d\d\d\d\d\w precision: 1.0, recall: 0.6144
-name: \d{6,6}20\d{9,9}\w precision: 1.0, recall: 0.3856
+name: id_card, pattern: \d\d\d\d\d\d19\d\d\d\d\d\d\d\d\d\w, precision: 1.0, recall: 0.6144
+name: id_card, pattern: \d{6,6}20\d{9,9}\w, precision: 1.0, recall: 0.3856
 ```
 
 train_data_file文件中有两列，第一列列名为'positive'，表示正样本，第二列列名为'negative'，表示负样本。对于身份证号码类型，正样本为身份证号码，负样本为非身份证号码数据，如电话号码。

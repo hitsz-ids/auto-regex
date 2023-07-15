@@ -8,7 +8,7 @@ from auto_regex.generations import PopulationInitializer
 from auto_regex.fitness.objective import Objective
 from auto_regex.config.evolve_param import EvolutionParam
 from auto_regex.evolution import Evolution, Selection, Variation
-from auto_regex.utils import get_fitness_rank, get_best_fitness_precison
+from auto_regex.utils import get_fitness_rank, get_best_fitness_precison, get_final_metric
 
 
 def generate(regex_name,
@@ -95,7 +95,12 @@ def generate(regex_name,
     regex_string = '|'.join(result_regexes)
     print('{}: {}'.format(regex_name, regex_string))
 
+    precision, recall = get_final_metric(dataset.pos_examples, dataset.neg_examples, regex_string)
+    print(f'precision: {precision}, recall: {recall}')
+
     result = {'regex_name': regex_name,
-              'regex_pattern': regex_string}
+              'regex_pattern': regex_string,
+              'precision': precision,
+              'recall': recall}
 
     return result

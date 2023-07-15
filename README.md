@@ -122,14 +122,6 @@ SOCIAL_CREDIT_CODE     0.4784    1.0000    0.6472     10000
 
 auto-regex开源项目由**哈尔滨工业大学（深圳）数据安全研究院**发起，若您对auto-regex项目感兴趣并愿意一起完善它，欢迎加入我们的开源社区。
 
-### Owner
-
-+ Longice(zekuncao@gmail.com) 
-
-### Maintainer
-
-+ Longice(zekuncao@gmail.com) 
-
 您可以联系项目Owner，若您通过审核便可成为auto-regex的Maintainer成员之一。
 
 
